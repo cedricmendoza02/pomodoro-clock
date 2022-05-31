@@ -1,23 +1,38 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import { TimerControl } from './components';
 import './App.css';
 
 function App() {
+  const [currentTimer, setCurrentTimer] = useState()
+  const [workMinutes, setWorkMinutes] = useState(25)
+  const [breakMinutes, setBreakMinutes] = useState(5)
+
+  const increase = (update) => {
+    update(prevState => prevState + 1)
+  }
+
+  const decrease = (update) => {
+    update(prevState => prevState - 1)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Pomodoro Clock</h1>
+      <TimerControl 
+        title="Work" 
+        minutes={workMinutes}
+        increase={() => increase(setWorkMinutes)}
+        decrease={() => decrease(setWorkMinutes)}
+        />
+      <TimerControl 
+        title="Break" 
+        minutes={breakMinutes}
+        increase={() => increase(setBreakMinutes)}
+        decrease={() => decrease(setBreakMinutes)}
+        />
+      <div>
+        current timer
+      </div>
     </div>
   );
 }

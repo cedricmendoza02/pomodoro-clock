@@ -1,0 +1,1 @@
+export { default as TimerControl } from './timerControl/TimerControl';
