@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { TimerControl } from './components';
+import { TimerControl, Timer } from './components';
 import './App.css';
 
 function App() {
   const [currentTimer, setCurrentTimer] = useState()
   const [workMinutes, setWorkMinutes] = useState(25)
   const [breakMinutes, setBreakMinutes] = useState(5)
+  const [activeTimer, setActiveTimer] = useState("work")
+  const [seconds, setSeconds] = useState(0)
 
   const increase = (update) => {
     update(prevState => prevState < 60 ? prevState + 1 : prevState)
@@ -13,6 +15,10 @@ function App() {
 
   const decrease = (update) => {
     update(prevState => prevState > 0 ? prevState - 1 : prevState)
+  }
+
+  const startTimer = () => {
+      return
   }
 
   return (
@@ -31,6 +37,12 @@ function App() {
         decrease={() => decrease(setBreakMinutes)}
         />
       <div>
+        <Timer 
+          activeTimer={activeTimer === 'work' ? 
+                        {title: "Work", minutes: workMinutes} : 
+                        {title: "Break", minutes: breakMinutes}} 
+          seconds={seconds}/>
+          <button onClick={startTimer}>Start/Pause</button>
       </div>
     </div>
   );

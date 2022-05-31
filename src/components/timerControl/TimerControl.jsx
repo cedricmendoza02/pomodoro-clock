@@ -2,7 +2,7 @@ import React from 'react'
 
 const TimerControl = ({title, minutes, increase, decrease}) => {
   return (
-    <div className="timer">
+    <div>
         <h2>{title}</h2>
         <p>
           <button onClick={decrease}>-</button>
