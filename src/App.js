@@ -8,11 +8,11 @@ function App() {
   const [breakMinutes, setBreakMinutes] = useState(5)
 
   const increase = (update) => {
-    update(prevState => prevState + 1)
+    update(prevState => prevState < 60 ? prevState + 1 : prevState)
   }
 
   const decrease = (update) => {
-    update(prevState => prevState - 1)
+    update(prevState => prevState > 0 ? prevState - 1 : prevState)
   }
 
   return (
@@ -31,7 +31,6 @@ function App() {
         decrease={() => decrease(setBreakMinutes)}
         />
       <div>
-        current timer
       </div>
     </div>
   );
