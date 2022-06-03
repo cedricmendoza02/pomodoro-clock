@@ -1,30 +1,45 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import useInterval from '../../custom_hooks/useInterval'
+
+const alarm = new Audio('../../assets/alarm_clock.mp3')
 
 const Timer = ({workMinutes, breakMinutes, isRunning}) => {
   const [minutes, setMinutes] = useState(workMinutes + breakMinutes)
   const [seconds, setSeconds] = useState(0)
-
+  const [currentTimer, setCurrentTimer] = useState('Work')
+  
+  // listens to changes from the prop provider
   useEffect(() => {
     setMinutes(workMinutes + breakMinutes)
     setSeconds(0)
   }, [workMinutes, breakMinutes])
 
+  useEffect(() => {
+    if(!minutes && !seconds) {
+      setCurrentTimer('Work')
+    } else if(minutes < breakMinutes) {
+      setCurrentTimer('Break')
+    }
+  }, [minutes, seconds])
+
   useInterval(() => {
-    if(seconds === 0) {
-     setMinutes(prevState => prevState - 1)
-     setSeconds(59)
-     return
+    if(!seconds && !minutes) {
+      setMinutes(workMinutes + breakMinutes)
+      return
+    } else if(!seconds) {
+      setMinutes(prevState => prevState - 1)
+      setSeconds(59)
+      return
     }
     setSeconds(prevState => prevState - 1)
-  }, isRunning ? 10 : null)
+  }, isRunning ? 50 : null)
 
   let mm = minutes < 10 ? `0${minutes}` : minutes
   let ss = seconds < 10 ? `0${seconds}` : seconds
 
   return (
     <div>
-        <h2>{minutes > breakMinutes ? 'Work' : 'Break'}</h2>
+        <h2>{currentTimer}</h2>
         <p>{mm}:{ss}</p>
     </div>
   )
