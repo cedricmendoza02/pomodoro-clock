@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import useInterval from '../../custom_hooks/useInterval'
+import ring from '../../assets/alarm_clock.ogg'
 
-const alarm = new Audio('../../assets/alarm_clock.mp3')
+let alarm = new Audio(ring)
 
 const Timer = ({workMinutes, breakMinutes, isRunning}) => {
   const [minutes, setMinutes] = useState(workMinutes + breakMinutes)
@@ -21,6 +22,10 @@ const Timer = ({workMinutes, breakMinutes, isRunning}) => {
       setCurrentTimer('Break')
     }
   }, [minutes, seconds])
+
+  useEffect(() => {
+    alarm.play()
+  }, [currentTimer])
 
   useInterval(() => {
     if(!seconds && !minutes) {
