@@ -3,8 +3,8 @@ import { TimerControl, Timer } from './components';
 import './App.css';
 
 function App() {
-  const [workMinutes, setWorkMinutes] = useState(3)
-  const [breakMinutes, setBreakMinutes] = useState(2)
+  const [workMinutes, setWorkMinutes] = useState(30)
+  const [breakMinutes, setBreakMinutes] = useState(10)
   const [isRunning, setIsRunning] = useState(false)
 
   const increase = (update) => {

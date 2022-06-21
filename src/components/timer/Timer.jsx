@@ -37,7 +37,7 @@ const Timer = ({workMinutes, breakMinutes, isRunning}) => {
       return
     }
     setSeconds(prevState => prevState - 1)
-  }, isRunning ? 50 : null)
+  }, isRunning ? 1000 : null)
 
   let mm = minutes < 10 ? `0${minutes}` : minutes
   let ss = seconds < 10 ? `0${seconds}` : seconds
